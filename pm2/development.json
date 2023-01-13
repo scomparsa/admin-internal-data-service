@@ -1,0 +1,15 @@
+{
+  "name": "admin-internal-data-service",
+  "cwd": "/home/work/admin-internal-data-service",
+  "script": "./dist",
+  "log_date_format": "YYYY-MM-DD HH:mm Z",
+  "error_file": "/data/logs/pm2/admin-internal-data-service/error.log",
+  "out_file": "/data/logs/pm2/admin-internal-data-service/out.log",
+  "ignore_watch": ["node_modules"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "exec_interpreter": "node@12.14.0",
+  "interpreter_args": "--harmony",
+  "exec_mode": "fork"
+}

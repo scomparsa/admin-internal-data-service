@@ -1,0 +1,55 @@
+.access_branch_template: &access_branch
+  only:
+    - master
+    - dev
+
+variables:
+  project: admin-internal-data-service
+  scripts: /data/yaml-shell
+  deploys: /home/work/admin-internal-data-service
+  SCRIPTS_STORAGE: /home/gitlab-runner/runner-scripts
+
+stages:
+  - before_deploy
+  - deploy_dev
+  - deploy_prod
+
+before_deploy:
+  <<: *access_branch
+  stage: before_deploy
+  before_script:
+    - nvm use v12
+  script:
+    - bash $scripts/install.sh
+    - bash $SCRIPTS_STORAGE/lint-src.sh
+    - npm run build
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - node_modules/
+  artifacts:
+    name: "$CI_JOB_NAME"
+    paths:
+      - dist/
+
+deploy_dev:
+  stage: deploy_dev
+  when: on_success
+  script:
+    - bash $scripts/clean-deploy-node12.sh
+    - bash $SCRIPTS_STORAGE/pm2-restart.sh "admin-apollo-gateway"
+  environment:
+    name: development
+  only:
+    - dev
+
+deploy_prod:
+  stage: deploy_prod
+  when: on_success
+  script:
+    - bash $scripts/clean-deploy-node12.sh
+    - bash $SCRIPTS_STORAGE/pm2-restart.sh "admin-apollo-gateway"
+  environment:
+    name: production
+  only:
+    - master

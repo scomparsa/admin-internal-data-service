@@ -1,0 +1,95 @@
+{
+  "name": "admin-internal-data-service",
+  "version": "0.0.1",
+  "description": "后台国内数据服务",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=local tsnd --prefer-ts --no-deps -r tsconfig-paths/register src/",
+    "build": "rm -rf ./dist && tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "fix:qconf": "ln -s /usr/local/qconf/lib/libqconf.dylib libqconf.dylib"
+  },
+  "keywords": [
+    "admin",
+    "apollo",
+    "federated",
+    "implementing",
+    "service",
+    "auth"
+  ],
+  "author": "Mark",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scomparsa/admin-internal-data-service"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "7.6.1",
+    "@commitlint/config-angular": "7.1.2",
+    "@commitlint/config-conventional": "7.1.2",
+    "@types/koa": "2.0.48",
+    "@types/koa-helmet": "6.0.2",
+    "@types/koa-session": "5.7.4",
+    "@types/lodash": "4.14.154",
+    "@types/mkdirp": "0.5.2",
+    "@types/request-promise-native": "1.0.16",
+    "@types/validator": "10.11.3",
+    "eslint": "5.4.0",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-plugin-prettier": "3.1.3",
+    "husky": "1.2.1",
+    "lint-staged": "8.1.0",
+    "prettier": "2.0.5",
+    "ts-node": "8.10.2",
+    "ts-node-dev": "1.0.0-pre.51",
+    "tsconfig-paths": "3.9.0",
+    "tscpaths": "0.0.9",
+    "typescript": "3.9.6",
+    "typescript-eslint-parser": "21.0.2"
+  },
+  "dependencies": {
+    "@apollo/federation": "0.15.0",
+    "@blued-core-oversea/kafka-client": "0.0.1",
+    "@blued-core/cache": "1.0.5",
+    "@blued-core/cache-intl": "0.0.5",
+    "@blued-core/http-client": "2.1.3",
+    "@blued-core/mysql-client": "2.0.1",
+    "@blued-core/mysql-conf": "1.0.2",
+    "@blued-core/qconf-conf": "0.1.2",
+    "@blued-core/redis-client": "0.0.17",
+    "@blued-core/redis-conf": "0.1.2",
+    "@sentry/node": "5.3.0",
+    "apollo-server-koa": "2.13.0",
+    "colors": "1.4.0",
+    "dataloader": "1.4.0",
+    "graphql": "15.0.0",
+    "graphql-middleware": "4.0.2",
+    "koa": "2.6.2",
+    "koa-helmet": "6.0.0",
+    "koa-real-ip": "1.0.1",
+    "koa-session": "5.10.1",
+    "lodash": "4.17.15",
+    "mkdirp": "0.5.1",
+    "moment": "2.24.0",
+    "mysql2": "1.7.0",
+    "reflect-metadata": "0.1.12",
+    "request-promise-native": "1.0.7",
+    "sequelize": "4.44.4",
+    "sequelize-typescript": "0.6.9",
+    "winston": "3.2.1",
+    "winston-daily-rotate-file": "3.9.0",
+    "winston-transport": "4.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
